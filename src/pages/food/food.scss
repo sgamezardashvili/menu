@@ -1,0 +1,41 @@
+.green{
+    background-color: green;
+}
+.product-content{
+    position: relative;
+    margin-top: 20px; 
+    height: 280px;  
+}
+.add-product{
+    position: absolute;
+    left: 70%;
+    top: 7%;;
+    width: 15%;
+    /*height: 30%;*/
+    /*background-color: orangered;*/
+    /*border-radius: 30%;*/
+}
+
+.remove-product{
+    position: absolute;
+    bottom: 10%;
+    left: 12%;
+    width: 12%;
+    /*height: auto;*/
+}
+
+.product {
+    width: 66%;
+    height: 65%;
+    background-color:maroon;    
+    border-radius: 50%;
+    position: absolute;
+    top: 12%;
+    left: 15%;
+}
+
+.des{
+    /*background-color: blue;*/
+    widows: 100px;
+    height: 100px;
+}

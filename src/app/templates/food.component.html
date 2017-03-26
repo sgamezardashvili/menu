@@ -1,0 +1,39 @@
+<!--<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+    <div class="green product-content">
+        <div class="product">
+            
+        </div>
+        <div class="des">
+            {{food.Name}}
+        </div>
+        <div class="add-product" (click) = addProduct()>
+            <img src="./app/contents/images/add.svg" />
+        </div>
+        <div *ngIf="selectedFoodCount>0" class="remove-product" (click)= removeProduct()>
+            <img src="./app/contents/images/remove.svg" />
+        </div>
+        <div>
+            {{selectedFoodCount}}
+        </div>
+    </div>
+</div>-->
+
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+    <div class="green product-content">
+        <div class="product">
+            
+        </div>
+        <div class="des">
+            {{food.Name}}
+        </div>
+        <div class="add-product" (click) = addProduct()>
+            <img src="./app/contents/images/add.svg" />
+        </div>
+        <div *ngIf="food.Point>0" class="remove-product" (click)= removeProduct()>
+            <img src="./app/contents/images/remove.svg" />
+        </div>
+        <div>
+            {{food.Point}}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<ion-content>
+    <ion-row>
+        <ion-col width-10>
+             <ion-list>
+            <div style="height:100px;background-color: red">
+                <button ion-button menuToggle>Toggle Menu</button>
+            </div>
+            <div style="height:100px;background-color: aqua">
+                <button ion-button menuToggle>Toggle Menu</button>
+            </div>
+            <div style="height:100px;background-color: blue">
+                <button ion-button menuToggle>Toggle Menu</button>
+            </div>
+            <div style="height:100px;background-color: gray">
+                <button ion-button menuToggle></button>
+            </div>
+
+                <button style="height:100px;background-color: darkblue" ion-button menuToggle></button>
+
+             </ion-list>
+        </ion-col>
+        <ion-col width-60 class="content">
+            <div class="left" *ngIf="_showMenu">
+                <div class="header">First Bucket</div>
+                <div id="asd" width-50 style="height: 500px; background-color: chartreuse;"></div>
+            </div>
+            <div class="header">Second Bucket</div>
+            <button ion-button block (click)="showMenu()">Add Todo</button>
+            <ion-list>
+
+                <div *ngFor="let food of foods">
+                    <product [food]="food" (onAddProduct)=selectProduct($event) (onRemoveProduct)=unSelectProduct($event)>
+                    </product>
+                </div>
+
+            </ion-list>
+        </ion-col>
+        <ion-col width-20 class="right">
+            <div class="header">First Bucket</div>
+            <div id="asd" width-50 style="height: 500px; background-color: chartreuse;"></div>
+        </ion-col>
+    </ion-row>
+</ion-content>

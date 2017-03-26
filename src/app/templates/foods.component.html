@@ -1,0 +1,18 @@
+
+<div class="col-md-2 col-md-offset-10">
+    <p>Selected <span>{{selectedFoodsSumPrice}}</span> </p>
+    <button type="button" (click)=order()>Put Order</button>
+    <div *ngIf="selectedFoodsSumPrice>0" (click)=displaySelectedFoods()>SelectedFoods</div>
+    <div *ngIf="showSelectedFoods">
+        <div *ngFor="let selectedfood of selectedFoods">
+            <div>
+                {{selectedfood.Name}} - {{selectedfood.Point}} Sum - {{priceFormat(selectedfood.Price,2)}}
+            </div>
+        </div>
+    </div>
+
+</div>
+<div *ngFor="let food of foods">
+    <product [food]="food" (onAddProduct)=selectProduct($event) (onRemoveProduct)=unSelectProduct($event)>
+    </product>
+</div>
