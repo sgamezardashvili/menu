@@ -17,8 +17,6 @@ export class SocketService {
     constructor() {
         console.log('Init Socket Service');
 
-        console.log(this.host);
-
         let socketUrl = "http://192.168.0.92:3000";
 
         this.socket = io.connect(socketUrl);
