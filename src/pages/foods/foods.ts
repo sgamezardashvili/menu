@@ -7,6 +7,8 @@ import { OrderService } from '../../app/services/order.service';
 import { Observable } from 'rxjs/Observable';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
+import { SocketService } from '../../app/services/socket.io.service';
+
 //import { ChannelService, ConnectionState, ChannelEvent } from '../../app/services/channel.service';
 
 //import { SignalR, SignalRConnectionBase } from 'ng2-signalr';
@@ -21,14 +23,15 @@ export class FoodsPage implements OnInit {
 
     //connectionState$: Observable<string>;
 
+    counter:number = 0;
     channel: string = 'T1';
 
     foods: Food[] = [];
     selectedFoods: Food[] = [];
     showSelectedFoods: boolean = false;
-    _showMenu:boolean = false;
-    
-    showMenu(){
+    _showMenu: boolean = false;
+
+    showMenu() {
         console.log('show menu')
         this._showMenu = !this._showMenu;
     }
@@ -48,8 +51,8 @@ export class FoodsPage implements OnInit {
     //private _connection: SignalRConnectionBase = null;
     //, private _signalR: SignalR
     //private channelService:ChannelService
-    constructor(private foodService: FoodService, private orderService: OrderService, private dragulaService: DragulaService) {
-        
+    constructor(private foodService: FoodService, private orderService: OrderService, private dragulaService: DragulaService, private socketService: SocketService) {
+
         dragulaService.setOptions('my-bag',
             {
                 copy: true
@@ -72,7 +75,7 @@ export class FoodsPage implements OnInit {
             console.log('food-id');
             console.log(outputEl.getAttribute('food-id'));
 
-            var food = this.foods.find(function(food){
+            var food = this.foods.find(function (food) {
                 return food.Id == +outputEl.getAttribute('food-id');
             })
 
@@ -110,6 +113,11 @@ export class FoodsPage implements OnInit {
                 error: err => console.error('something wrong occurred: ' + err),
                 complete: () => console.log('done')
             });
+
+
+            this.socketService.eventSubject$.subscribe(((value)=>{
+                this.counter++;
+            }))
 
         //this.channelService.start();
 

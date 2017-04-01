@@ -9,12 +9,13 @@ import { AppService } from './services/app.service';
 import { FoodService } from './services/food.service';
 import { OrderService } from './services/order.service';
 import { ChannelService, ChannelConfig, SignalrWindow } from "./services/channel.service";
+import { SocketService } from './services/socket.io.service';
 
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 
 import { FoodComponent } from '../pages/food/food';
 import { FoodsPage } from '../pages/foods/foods';
-import * as $ from 'jquery';
+//import * as $ from 'jquery';
 
 let channelConfig = new ChannelConfig();
 // channelConfig.url = "http://192.168.10.107:8080/signalr";
@@ -44,7 +45,7 @@ channelConfig.hubName = "MenuHub";
     FoodsPage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, AppService, FoodService, OrderService,
-    ChannelService,
+    ChannelService, SocketService,
   { provide: SignalrWindow, useValue: window },
   { provide: 'channel.config', useValue: channelConfig }
   ]

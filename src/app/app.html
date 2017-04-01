@@ -3,17 +3,27 @@
 <ion-menu [content]="mycontent">
 
     <ion-content>
-        <ion-list>
-             <button ion-item menuClose (click)="openPage(homePage)">
-                Home
-            </button>
+        <!--<ion-list>
+            <ion-item>
+                <button ion-item menuClose (click)="openPage(homePage)">Home</button>
+                <span style="width: 100px;height: 100px;background-color: red"></span>
+            </ion-item>
+
+
             <button ion-item menuClose (click)="openPage(catsPage)">
                 Cats
             </button>
             <button ion-item menuClose (click)="openPage(dogsPage)">
                 Dogs
             </button>
-        </ion-list>
+        </ion-list>-->
+        <ion-item width-40>
+            <div></div>
+            <button menuClose (click)="openPage(homePage)">Home</button>
+        </ion-item>
+        <ion-item width-40>
+            <button menuClose (click)="openPage(homePage)">Home</button>
+        </ion-item>
     </ion-content>
 
 </ion-menu>
