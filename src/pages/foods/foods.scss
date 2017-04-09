@@ -1,8 +1,23 @@
-left{
+.left{
     position: relative;
     top: 0; 
     left: 0;
     z-index: 50;
     width: 100px;
     
+}
+.relative{
+    position: relative;
+}
+.menu_left{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+.orders_right{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
 }

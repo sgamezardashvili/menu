@@ -7,7 +7,7 @@ import { OrderService } from '../../app/services/order.service';
 import { Observable } from 'rxjs/Observable';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
-import { SocketService } from '../../app/services/socket.io.service';
+import { SocketService, EventArgs } from '../../app/services/socket.io.service';
 
 //import { ChannelService, ConnectionState, ChannelEvent } from '../../app/services/channel.service';
 
@@ -17,13 +17,14 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'products',
-    templateUrl: 'foods.html'
+    templateUrl: 'foods.html',
+    //styleUrls:['foods.scss']
 })
 export class FoodsPage implements OnInit {
 
     //connectionState$: Observable<string>;
 
-    counter:number = 0;
+    counter: number = 0;
     channel: string = 'T1';
 
     foods: Food[] = [];
@@ -84,8 +85,6 @@ export class FoodsPage implements OnInit {
 
             // if (inputEl)
             //     inputEl.removeChild(el);
-
-
         });
 
 
@@ -115,9 +114,42 @@ export class FoodsPage implements OnInit {
             });
 
 
-            this.socketService.eventSubject$.subscribe(((value)=>{
+        this.socketService.eventSubject$.subscribe(((eventArgs: EventArgs) => {
+
+            var selectFood = this.selectedFoods.find(function (food) {
+                return food.Id == eventArgs.food.Id;
+            });
+
+            let food = this.foods.find((food: Food) => {
+                return food.Id == eventArgs.food.Id;
+            });
+
+
+            if (eventArgs.eventCode == "Select") {
+
+                if (selectFood) {
+                    selectFood.Point += 1;
+                }
+                else {
+                    this.selectedFoods.push(eventArgs.food);
+                }
+
+                food.Point = eventArgs.food.Point;
+
                 this.counter++;
-            }))
+            }
+            else if (eventArgs.eventCode = "UnSelect") {
+                selectFood.Point--;
+                selectFood.Price -= food.Price;
+
+                food.Point = eventArgs.food.Point;              
+
+                if (selectFood.Point == 0) {
+                    this.selectedFoods.splice(this.selectedFoods.indexOf(selectFood), 1);
+                }
+                this.counter--;
+            }
+        }))
 
         //this.channelService.start();
 
@@ -182,23 +214,29 @@ export class FoodsPage implements OnInit {
     }
 
     selectProduct(food: Food) {
-        //this.selectedFoods.push(food);
+        this.counter++;
+        this.selectedFoods.push(food);
+        this.socketService.selectFood(food);
+
         //this.channelService.selectFood(food, 'T1');
     }
 
     unSelectProduct(food: Food) {
-
+        
         let unSelectedFood = this.selectedFoods.find((value) => {
             return value.Id == food.Id;
         });
 
-        unSelectedFood.Point -= 1;
-        unSelectedFood.Price -= food.Price;
+         //unSelectedFood.Point--;
+        // unSelectedFood.Price -= food.Price;
 
-        if (unSelectedFood.Point == 0) {
-            this.selectedFoods.splice(this.selectedFoods.indexOf(food), 1);
-        }
-
+        // if (unSelectedFood.Point == 0) {
+        //     console.log('clear selected foos');
+        //     this.selectedFoods.splice(this.selectedFoods.indexOf(unSelectedFood), 1);
+        // }
+        console.log(food);  
+        this.socketService.unSelect(food);
+        this.counter--;
         //this.channelService.unSelectFood(food, this.channel);
     }
 

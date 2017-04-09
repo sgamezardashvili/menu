@@ -18,15 +18,17 @@ export class FoodComponent implements OnInit {
     }
 
     addProduct() {
+        this.food.Point += 1;        
         this.onAddProduct.emit(this.food);
         this.selectedFoodCount += 1;
-        //this.food.Point += 1;
         console.log("add product");
     }
     removeProduct() {
-        this.onRemoveProduct.emit(this.food);
+        console.log(this.food.Point);
         this.selectedFoodCount -= 1;
-        //this.food.Point -= 1;
+        this.food.Point -= 1;
+        console.log(this.food);        
+        this.onRemoveProduct.emit(this.food);        
         console.log("remove product");
     }
 }

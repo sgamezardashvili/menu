@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Subject } from "rxjs/Subject";
 import * as io from "socket.io-client";
+import { Food } from '../entities/food';
 
 import { IMessage, ISocketItem } from "../../models";
 
@@ -12,7 +13,7 @@ export class SocketService {
     socket: any;
 
     eventSubject$: Observable<any>;
-    private eventSubject = new Subject<any>();
+    private eventSubject = new Subject<EventArgs>();
 
     constructor() {
         console.log('Init Socket Service');
@@ -26,42 +27,50 @@ export class SocketService {
             console.log(`ERROR: "${error}" (${socketUrl})`);
         });
 
-        this.socket.on("updateFood", (food) => {
-            console.log(food);
-            this.eventSubject.next(food)
+        this.socket.on("onSelectFood", (food, users) => {
+            console.log(`onSelectFood "${food.Name}"`);
+            console.log(users);
+            if (users != null) {
+                var userKey = this.socket.id;
+
+                var hasKey = users.find(function (key) {
+                    return key == userKey;
+                });
+
+                if (hasKey != undefined) {
+                    this.eventSubject.next(new EventArgs('Select', food));
+                }
+            }
+        });
+
+        this.socket.on("onUnSelectFood", (food, users) => {
+            console.log(`onUnSelectFood "${food.Name}"`);
+            console.log(users);
+            if (users != null) {
+                var userKey = this.socket.id;
+
+                var hasKey = users.find(function (key) {
+                    return key == userKey;
+                });
+
+                if (hasKey != undefined) {
+                    this.eventSubject.next(new EventArgs('UnSelect', food));
+                }
+            }
         });
 
         this.eventSubject$ = this.eventSubject.asObservable();
 
     }
 
-    // Get items observable
-    get(name: string): Observable<any> {
-        this.name = name;
-        let socketUrl = this.host + "/" + this.name;
-        this.socket = io.connect(socketUrl);
-        this.socket.on("connect", () => this.connect());
-        this.socket.on("disconnect", () => this.disconnect());
-        this.socket.on("error", (error: string) => {
-            console.log(`ERROR: "${error}" (${socketUrl})`);
-        });
-
-        // Return observable which follows "create" and "remove" signals from socket stream
-        return Observable.create((observer: any) => {
-            this.socket.on("create", (item: any) => observer.next({ action: "create", item: item }));
-            this.socket.on("remove", (item: any) => observer.next({ action: "remove", item: item }));
-            return () => this.socket.close();
-        });
+    selectFood(food) {
+        this.socket.emit("selectFood", food, "T1");
     }
 
-    // Create signal
-    create(name: string) {
-        this.socket.emit("create", name);
-    }
-
-    // Remove signal
-    remove(name: string) {
-        this.socket.emit("remove", name);
+    unSelect(food) {
+        // console.log('unselect method');
+        // console.log(food);
+        this.socket.emit("unSelectFood", food, "T1");
     }
 
     // Handle connection opening
@@ -70,10 +79,20 @@ export class SocketService {
 
         // Request initial list when connected
         this.socket.emit("list");
+        this.socket.emit("addUser", "T1", this.socket.id);
     }
 
     // Handle connection closing
     private disconnect() {
         console.log(`Disconnected from "${this.name}"`);
+    }
+}
+
+export class EventArgs {
+    eventCode: string;
+    food: Food;
+    constructor(eventCode: string, food: Food) {
+        this.eventCode = eventCode;
+        this.food = food;
     }
 }
