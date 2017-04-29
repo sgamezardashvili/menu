@@ -13,6 +13,7 @@ export class FoodService {
     constructor(private http: Http) {
 
     }
+    //url:string = 'http://192.168.10.54:8080/api/Foods';
     url:string = 'http://192.168.0.92:8080/api/Foods';
     //url: string = 'http://192.168.0.92:5164/api/Foods';
     getFoods(): Observable<Food[]> {

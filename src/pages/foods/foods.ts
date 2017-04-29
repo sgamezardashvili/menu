@@ -64,7 +64,7 @@ export class FoodsPage implements OnInit {
             let el = value[1] as Element;
             let inputEl = value[2] as Element;
             let outputEl = value[3] as Element;
-
+            
             console.log('el');
             console.log(el);
             console.log('inputEl');
@@ -75,6 +75,8 @@ export class FoodsPage implements OnInit {
             console.log(outputEl);
             console.log('food-id');
             console.log(outputEl.getAttribute('food-id'));
+
+            console.log(value);
 
             var food = this.foods.find(function (food) {
                 return food.Id == +outputEl.getAttribute('food-id');

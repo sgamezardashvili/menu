@@ -1,25 +1,31 @@
-<ion-content>
-    <ion-row class="relative" style="background-color: red">
+<ion-content style="background-image: url('assets/images/background.png')">
+    <ion-row class="relative backgrount-img">
+        <ion-col col-12>
+            <div style="background-image: url('assets/images/background-top.png');width:1900px;height:80px">
+
+            </div>
+        </ion-col>
         <ion-col col-1>
-            <ion-list>
-                <div style="height:100px;background-color: red">
-                    <button ion-button menuToggle>Toggle Menu</button>
+            <ion-list class="background-left-img">
+                <div  class="food-m1">
+                    
                 </div>
-                <div style="height:100px;background-color: aqua">
-                    <button ion-button menuToggle>Toggle Menu</button>
+                <div style="height:100px;">
+                    <!--<img src="res/android/icon.png"/>-->
+                    <!--<icon src="res/android/icon.png"/>-->
                 </div>
-                <div style="height:100px;background-color: blue">
-                    <button ion-button menuToggle>Toggle Menu</button>
+                <div style="height:100px;">
+
                 </div>
-                <div style="height:100px;background-color: gray">
-                    <button ion-button menuToggle></button>
+                <div style="height:100px;">
+
                 </div>
 
                 <button style="height:100px;background-color: darkblue" ion-button (click)="showMenu()"></button>
 
             </ion-list>
         </ion-col>
-        <ion-col col-11 class="content">
+        <ion-col col-8 class="content">
             <div *ngIf="_showMenu">
                 <div class="menu_left">
                     <div style="height:100px;background-color: red">
@@ -41,16 +47,22 @@
             </div>
             <div class="header">Second Bucket</div>
             <p>{{counter}}</p>
-            <button ion-button block (click)="showMenu()">Add Todo</button>
             <ion-row>
                 <ion-col col-4 *ngFor="let food of foods">
-                        <product [food]="food" (onAddProduct)=selectProduct($event) (onRemoveProduct)=unSelectProduct($event)>
-                        </product>
+                    <product [food]="food" (onAddProduct)=selectProduct($event) (onRemoveProduct)=unSelectProduct($event)>
+                    </product>
                 </ion-col>
             </ion-row>
-            <div class="right orders_right">
+            <!--<div class="right orders_right">
                 <div class="header">Third Bucket</div>
                 <div id="asd" style="height: 500px; background-color: chartreuse;"></div>
+            </div>-->
+        </ion-col>
+        <ion-col col-3>
+            <div class="right orders_right backgrount-right-img">
+                <div [dragula]='"my-bag"' style="width:600px;height:800px; background-color:rebeccapurple">
+                    <p style="color:brown">skeuhcku</p>
+                </div>
             </div>
         </ion-col>
     </ion-row>
