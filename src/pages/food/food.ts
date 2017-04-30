@@ -31,4 +31,8 @@ export class FoodComponent implements OnInit {
         this.onRemoveProduct.emit(this.food);        
         console.log("remove product");
     }
+    drag(ev){
+        ev.dataTransfer.setData("foodId", this.food.Id);
+        console.log('Drag start FoodId is '+this.food.Id);
+    }
 }

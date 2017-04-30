@@ -17,9 +17,22 @@
         </div> 
     </div>
 </div>-->
-<div [dragula]='"my-bag"' class="col-lg-4 col-md-4 col-sm-4 col-xs-12" [attr.food-id]="food.Id">
+<!--<div [dragula]='"my-bag"' class="col-lg-4 col-md-4 col-sm-4 col-xs-12" [attr.food-id]="food.Id">
     <div class="product-content">
         <div class="product">
+           
+        </div>
+        <div class="des" style="color:beige;width:100px;height:100px;">
+            {{food.Name}}
+        </div>
+        <div>
+            {{food.Point}}
+        </div>
+    </div>
+</div>-->
+<div   class="col-lg-4 col-md-4 col-sm-4 col-xs-12" [attr.food-id]="food.Id">
+    <div class="product-content">
+        <div draggable="true" (dragstart)="drag($event)" class="product">
            
         </div>
         <div class="des" style="color:beige;width:100px;height:100px;">

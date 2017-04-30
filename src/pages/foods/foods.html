@@ -60,8 +60,12 @@
         </ion-col>
         <ion-col col-3>
             <div class="right orders_right backgrount-right-img">
-                <div [dragula]='"my-bag"' style="width:600px;height:800px; background-color:rebeccapurple">
+                <!--<div [dragula]='"my-bag"' style="width:600px;height:800px; background-color:rebeccapurple">
                     <p style="color:brown">skeuhcku</p>
+                </div>-->
+
+                <div style="width:600px;height:800px; background-color:rebeccapurple" (drop)="drop($event)" (dragover)="allowDrop($event)">
+                <div id="orders"></div>
                 </div>
             </div>
         </ion-col>

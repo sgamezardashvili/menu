@@ -64,7 +64,7 @@ export class FoodsPage implements OnInit {
             let el = value[1] as Element;
             let inputEl = value[2] as Element;
             let outputEl = value[3] as Element;
-            
+
             console.log('el');
             console.log(el);
             console.log('inputEl');
@@ -144,7 +144,7 @@ export class FoodsPage implements OnInit {
                 selectFood.Point--;
                 selectFood.Price -= food.Price;
 
-                food.Point = eventArgs.food.Point;              
+                food.Point = eventArgs.food.Point;
 
                 if (selectFood.Point == 0) {
                     this.selectedFoods.splice(this.selectedFoods.indexOf(selectFood), 1);
@@ -224,19 +224,19 @@ export class FoodsPage implements OnInit {
     }
 
     unSelectProduct(food: Food) {
-        
+
         let unSelectedFood = this.selectedFoods.find((value) => {
             return value.Id == food.Id;
         });
 
-         //unSelectedFood.Point--;
+        //unSelectedFood.Point--;
         // unSelectedFood.Price -= food.Price;
 
         // if (unSelectedFood.Point == 0) {
         //     console.log('clear selected foos');
         //     this.selectedFoods.splice(this.selectedFoods.indexOf(unSelectedFood), 1);
         // }
-        console.log(food);  
+        console.log(food);
         this.socketService.unSelect(food);
         this.counter--;
         //this.channelService.unSelectFood(food, this.channel);
@@ -256,5 +256,22 @@ export class FoodsPage implements OnInit {
         // this.channelService.clear(this.channel);
 
         //this.channelService.disconnect();
+    }
+
+    drop(ev) {
+        console.log("FoodId is " + ev.dataTransfer.getData("foodId"));
+
+        let element = document.createElement("p");
+
+        element.innerText = "Added Food with Id " + ev.dataTransfer.getData("foodId");
+
+        let orders = document.getElementById('orders');
+
+        orders.appendChild(element);
+    }
+
+    allowDrop(ev) {
+        console.log('allow drop');
+        ev.preventDefault();
     }
 }
